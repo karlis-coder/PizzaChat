@@ -3,18 +3,22 @@
 //  PizzaChat
 //
 //  Created by Karlis Butins on 22/02/2021.
+//  Copyright © 2021 Karlis Butins. All rights reserved.
 //
 
 import UIKit
 import Firebase
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         FirebaseApp.configure()
+        let db = Firestore.firestore()
+        print(db)
+        
         return true
     }
 

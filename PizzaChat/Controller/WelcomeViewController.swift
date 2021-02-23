@@ -3,6 +3,7 @@
 //  PizzaChat
 //
 //  Created by Karlis Butins on 22/02/2021.
+//  Copyright © 2021 Karlis Butins. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +15,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = "🍕PizzaChat"
+        titleLabel.text = K.appName
         
     }
     

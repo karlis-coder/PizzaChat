@@ -3,6 +3,7 @@
 //  PizzaChat
 //
 //  Created by Karlis Butins on 22/02/2021.
+//  Copyright © 2021 Karlis Butins. All rights reserved.
 //
 
 import UIKit
@@ -18,9 +19,9 @@ class RegisterViewController: UIViewController {
                 if let e = error {
                     print(e.localizedDescription)
                 } else {
-                    
-                    self.performSegue(withIdentifier: "RegisterToChat", sender: self)
-                   // ChatViewController
+                    // go back to ChatViewController
+                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                   
                 }
         }
     

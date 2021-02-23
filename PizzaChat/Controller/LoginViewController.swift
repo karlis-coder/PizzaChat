@@ -3,6 +3,7 @@
 //  PizzaChat
 //
 //  Created by Karlis Butins on 22/02/2021.
+//  Copyright © 2021 Karlis Butins. All rights reserved.
 //
 
 import UIKit
@@ -19,12 +20,9 @@ class LoginViewController: UIViewController {
                 if let e = error {
                     print(e)
                 } else {
-                    self.performSegue(withIdentifier: "LoginToChat", sender: self)
+                    self.performSegue(withIdentifier: K.loginSegue, sender: self)
                 }
-              // ...
             }
         }
-       
     }
-    
 }
