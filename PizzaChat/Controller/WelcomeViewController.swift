@@ -10,7 +10,7 @@ import UIKit
 import CLTypingLabel
 class WelcomeViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: CLTypingLabel!
+    @IBOutlet weak var titleLabel: CLTypingLabel! //CLTypingLabel (cocoapod) animates textlabels
     
     override func viewDidLoad() {
         super.viewDidLoad()

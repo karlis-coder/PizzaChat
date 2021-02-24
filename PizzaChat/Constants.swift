@@ -7,6 +7,8 @@
 //
 
 
+// MARK: - a struct to redefine string identifiers
+
 struct K {
     static let appName = "🍕PizzaChat"
     static let cellIdentifier = "ReusableCell"
