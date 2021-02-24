@@ -32,8 +32,6 @@ class ChatViewController: UIViewController {
     
     func loadMessages() {
         
-      
-        
         db.collection(K.FStore.collectionName)
             .order(by: K.FStore.dateField)
             .addSnapshotListener { (querySnapshot, error) in // get collection, order collection and snapshot listener retrieves new data with snapshotListener
@@ -53,6 +51,8 @@ class ChatViewController: UIViewController {
                             
                             DispatchQueue.main.async {  // fetch main thread process
                                 self.tableView.reloadData() // trigger data source methods
+                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                                self.tableView.scrollToRow(at: indexPath, at: .top , animated: true)
                             }
                         }
                     }
@@ -97,15 +97,30 @@ class ChatViewController: UIViewController {
 
     extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return messages.count  // how many cells
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { //cellForRowAt gets called as many times as there are cells
+        let message = messages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell //force down casting tableview cell object as MessageCell subclass
-        cell.label.text = messages[indexPath.row].body
+        cell.label.text = message.body
+        
+        
+        //This is a message from the current user
+        if message.sender == Auth.auth().currentUser?.email{
+            cell.leftImageView.isHidden = true
+            cell.rightImageView.isHidden = false
+            cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+            //cell.label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        } else {
+        //this is a messsage from another sender
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.messageBubble.backgroundColor = #colorLiteral(red: 0.3243189752, green: 0.8732073307, blue: 0.8275758624, alpha: 1)
+         }
+        
         return cell
     }
-
 }
 
 
