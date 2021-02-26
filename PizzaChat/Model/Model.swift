@@ -11,10 +11,11 @@
 
 struct K {
     static let appName = "🍕PizzaChat"
+    static let loginSegue = "LoginToChat"
+    static let registerSegue = "RegisterToChat"
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "MessageCell"
-    static let registerSegue = "RegisterToChat"
-    static let loginSegue = "LoginToChat"
+   
 
     struct FStore {
         static let collectionName = "messages"
