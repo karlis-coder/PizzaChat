@@ -87,7 +87,6 @@
 				0B62817F235DEE8400E35CAF /* Assets.xcassets */,
 				0B628184235DEE8400E35CAF /* Info.plist */,
 				A05BFD8D25E57BCC00933EC6 /* GoogleService-Info.plist */,
-				A0E1566F25E59869000561FF /* Constants.swift */,
 			);
 			path = PizzaChat;
 			sourceTree = "<group>";
@@ -117,6 +116,7 @@
 		0B628194235DF03A00E35CAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A0E1566F25E59869000561FF /* Constants.swift */,
 				A00B6F6425E59E34002433A1 /* Message.swift */,
 			);
 			path = Model;

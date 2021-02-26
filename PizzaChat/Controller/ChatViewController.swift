@@ -13,7 +13,7 @@ class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
-    
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     let db = Firestore.firestore()
     
@@ -21,12 +21,28 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = self
+        tableView.delegate = self //identify scrolling
+        
         title = K.appName
         navigationItem.hidesBackButton = true
         
-        
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        
+        //  Listener for when the keyboard appears
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        
+        //  Listener for when the keyboard disappears
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
         loadMessages()
     }
     
@@ -91,8 +107,28 @@ class ChatViewController: UIViewController {
           print ("Error signing out: %@", signOutError)
         }
     }
+    // Add bottom constraint keyboard height when keyboard pops up
+    @objc func keyboardWillShow(notification: NSNotification) {
+        // Keyboard height - how far should it slide up
+        if let userInfo = notification.userInfo, let endValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.bottomConstraint.constant = endValue.height
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+
+    // Add bottom constraint height
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bottomConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        })
+    }
 }
-    
+ 
+
+
 // MARK: - UITableView cell drawing
 
     extension ChatViewController: UITableViewDataSource {
@@ -111,6 +147,7 @@ class ChatViewController: UIViewController {
             cell.leftImageView.isHidden = true
             cell.rightImageView.isHidden = false
             cell.messageBubble.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+            // redefine text color 
             //cell.label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         } else {
         //this is a messsage from another sender
@@ -122,5 +159,13 @@ class ChatViewController: UIViewController {
         return cell
     }
 }
+// MARK: - Identify scrolling and hide keyboard
 
-
+extension ChatViewController: UITableViewDelegate {
+    // Identify when scrolling starts
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+        // resignFirstResponder() hides keyboard
+        messageTextfield.resignFirstResponder()
+    }
+}
