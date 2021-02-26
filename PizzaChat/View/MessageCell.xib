@@ -60,6 +60,7 @@
                     </stackView>
                 </subviews>
                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                 <constraints>
                     <constraint firstItem="lrr-QO-tif" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="JRZ-Bl-Osh"/>
                     <constraint firstItem="lrr-QO-tif" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="M6O-ML-Gg4"/>
